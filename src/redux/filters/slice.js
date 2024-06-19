@@ -14,11 +14,6 @@ const filtersSlice = createSlice({
   },
 });
 
-// Екшени слайса для використання в dispatch
 export const { changeFilter } = filtersSlice.actions;
 
-// Функції-селектори для використання в useSelector
-export const selectNameFilter = (state) => state.filters.name;
-
-// Експортуємо редюсер слайса
 export default filtersSlice.reducer;

@@ -1,12 +1,12 @@
-import { Typography, Box } from '@mui/material';
+import style from "./HomePage.module.css";
 
-const HomePage = () => {
+export default function Home() {
   return (
-    <Box textAlign="center" mt={4}>
-      <Typography variant="h3">Welcome to the Contact Book</Typography>
-      <Typography variant="body1">Manage your contacts easily and securely.</Typography>
-    </Box>
+    <div className={style.container}>
+      <h1 className={style.title}>
+        <span role="img" aria-label="Greeting icon">📒</span>
+       Contact Book
+      </h1>
+    </div>
   );
-};
-
-export default HomePage;
+}

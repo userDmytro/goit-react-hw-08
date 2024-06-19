@@ -1,12 +1,13 @@
-import { Box } from '@mui/material';
-import LoginForm from '../LoginForm/LoginForm';
+import { Helmet } from "react-helmet";
+import LoginForm from "../../components/LoginForm/LoginForm";
 
-const LoginPage = () => {
+export default function Login() {
   return (
-    <Box display="flex" justifyContent="center" mt={4}>
+    <div>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <LoginForm />
-    </Box>
+    </div>
   );
-};
-
-export default LoginPage;
+}

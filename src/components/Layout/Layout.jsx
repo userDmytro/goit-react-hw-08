@@ -1,13 +1,21 @@
-import { Container } from '@mui/material';
-import AppBar from '../AppBar/AppBar';
+import AppBar from "../AppBar/AppBar";
 
-export const Layout = ({ children }) => {
+import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
+import style from "./Layout.module.css";
+
+const Layout = () => {
   return (
-    <div>
+    <div className={style.container}>
       <AppBar />
-      <Container>
-        <main>{children}</main>
-      </Container>
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 };
+
+export default Layout;

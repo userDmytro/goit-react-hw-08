@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { register, login, logout, refreshUser } from './operations';
+import { createSlice } from "@reduxjs/toolkit";
+import { register, logIn, logOut, refreshUser } from "./operations";
 
 const initialState = {
   user: { name: null, email: null },
@@ -10,9 +10,9 @@ const initialState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
@@ -23,22 +23,22 @@ const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
         state.error = null;
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(logIn.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(logout.fulfilled, state => {
+      .addCase(logOut.fulfilled, (state) => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
         state.error = null;
       })
-      .addCase(refreshUser.pending, state => {
+      .addCase(refreshUser.pending, (state) => {
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {

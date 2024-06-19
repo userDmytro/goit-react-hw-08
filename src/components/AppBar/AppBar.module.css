@@ -1,0 +1,38 @@
+.logo {
+  font-size: 16px;
+  display: flex;
+  color: #e88c2b;
+  background-color: rgba(39, 153, 109, 0.414);
+  padding: 10px;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #2a363b;
+  background-color: rgba(39, 153, 109, 0.414);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.logo p {
+  display: none;
+}
+@media screen and (min-width: 656px) {
+  .logo p {
+    display: inline;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+}

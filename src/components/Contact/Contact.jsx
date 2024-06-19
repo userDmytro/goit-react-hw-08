@@ -1,112 +1,41 @@
-import { FaPhone } from "react-icons/fa6";
-import { IoPerson } from "react-icons/io5";
-import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/operations';
-import { ListItem, ListItemText, IconButton, Typography, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import EditContactForm from '../EditContactForm/EditContactForm';
+// src/components/Contact/Contact.jsx
+import { useDispatch } from "react-redux";
+import style from "./Contact.module.css";
+import { deleteContact } from "../../redux/contacts/operations";
+import { MdDeleteForever, MdModeEdit } from "react-icons/md";
+import { setActiveContactId, toggleModal } from "../../redux/contacts/slice";
+import { FaPhoneAlt, FaUser } from "react-icons/fa";
 
-export default function Contact({ id, name, number }) {
+const Contact = ({ name, number, id }) => {
   const dispatch = useDispatch();
-  const [openDelete, setOpenDelete] = useState(false);
-  const [openEdit, setOpenEdit] = useState(false);
 
   const handleDelete = () => {
     dispatch(deleteContact(id));
-    setOpenDelete(false);
-    toast.success('Contact deleted successfully!');
   };
 
-  const handleClickOpenDelete = () => {
-    setOpenDelete(true);
-  };
-
-  const handleCloseDelete = () => {
-    setOpenDelete(false);
-  };
-
-  const handleClickOpenEdit = () => {
-    setOpenEdit(true);
-  };
-
-  const handleCloseEdit = () => {
-    setOpenEdit(false);
+  const handleEdit = () => {
+    dispatch(setActiveContactId(id));
+    dispatch(toggleModal());
   };
 
   return (
-    <>
-      <ListItem
-        key={id}
-        secondaryAction={
-          <>
-            <IconButton edge="end" aria-label="edit" onClick={handleClickOpenEdit}>
-              <EditIcon />
-            </IconButton>
-            <IconButton edge="end" aria-label="delete" onClick={handleClickOpenDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </>
-        }
-        sx={{ 
-          borderBottom: '1px solid #ccc', 
-          padding: '10px 0' 
-        }}
-      >
-        <ListItemText
-          primary={
-            <Box display="flex" alignItems="center" gap={1}>
-              <IoPerson />
-              <Typography variant="body1" component="span">
-                {name}
-              </Typography>
-            </Box>
-          }
-          secondary={
-            <Box display="flex" alignItems="center" gap={1}>
-              <FaPhone />
-              <Typography variant="body2" component="span">
-                {number}
-              </Typography>
-            </Box>
-          }
-        />
-      </ListItem>
-      <Dialog
-        open={openDelete}
-        onClose={handleCloseDelete}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Confirm Deletion"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete this contact?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDelete}>Cancel</Button>
-          <Button onClick={handleDelete} autoFocus>
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog
-        open={openEdit}
-        onClose={handleCloseEdit}
-        aria-labelledby="edit-dialog-title"
-        aria-describedby="edit-dialog-description"
-      >
-        <DialogTitle id="edit-dialog-title">{"Edit Contact"}</DialogTitle>
-        <DialogContent>
-          <EditContactForm contact={{ id, name, number }} onClose={handleCloseEdit} />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseEdit}>Cancel</Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <div className={style.contact}>
+      <div className={style.data}>
+        <p className={style.info}>
+          <FaUser className={style.infoIcon} /> {name}
+        </p>
+        <p className={style.info}>
+          <FaPhoneAlt className={style.infoIcon} /> {number}
+        </p>
+      </div>
+      <button className={style.button} type="button" onClick={handleEdit}>
+        <MdModeEdit className={style.pencil} />
+      </button>
+      <button className={style.button} type="button" onClick={handleDelete}>
+        <MdDeleteForever className={style.bin} />
+      </button>
+    </div>
   );
-}
+};
+
+export default Contact;
